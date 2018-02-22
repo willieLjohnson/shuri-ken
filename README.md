@@ -44,10 +44,10 @@ Basic SpriteKit game with a cool ninja.
   - Rescued friends (in multiplayer) get back up with 25% recovered health.
 
 # Next steps
-1. [.] Implement core game features:
-  - [.] Move and shoot in any direction
-  - [] Monsters move directly to player
-  - [] Entity health
-  - [] Score label
+1. [.] Implement core game features
+    - [.] Move and shoot in any direction
+    - [] Monsters move directly to player
+    - [] Entity health
+    - [] Score label
 
 [.] = Working, [X] = Done
