@@ -23,14 +23,16 @@ class GameScene: SKScene {
   let player = SKSpriteNode(imageNamed: "player")
   /// Keeps track of the number of monsters the player has destroyed.
   var monstersDestroyed = 0
-  /// On screen controls.
+  /// On screen control to move player.
   let movePlayerStick = AnalogJoystick(diameters: (100, 50))
+  /// On screen control to control throwing weapons.
+  let weaponStick = AnalogJoystick(diameters: (100, 50))
 
   override func didMove(to view: SKView) {
     // Setup game scene.
     backgroundColor = .white
 
-    // Setup on-screen controls.
+    // Setup joystick to control player movement.
     movePlayerStick.position = CGPoint(x: movePlayerStick.radius + 15, y: movePlayerStick.radius + 15)
     movePlayerStick.trackingHandler = { [unowned self] data in
       let player = self.player
@@ -38,6 +40,44 @@ class GameScene: SKScene {
                                 y: player.position.y + (data.velocity.y * 0.12))
     }
     addChild(movePlayerStick)
+
+    // Setup joystick to control player weapon use.
+    weaponStick.position = CGPoint(x: size.width - weaponStick.radius - 15, y: weaponStick.radius + 15)
+    weaponStick.trackingHandler = { [unowned self] data in
+      // Play projectile sound.
+      self.run(SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: false))
+
+      // Get shooting direction.
+      let direction = data.velocity.normalized()
+      if direction.x.isNaN || direction.y.isNaN {
+        return
+      }
+
+      // Create projectile.
+      let projectile = SKSpriteNode(imageNamed: "projectile")
+      projectile.position = self.player.position
+
+      // Setup projectile physics body.
+      projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width / 2)
+      guard let projectilePhysicsBody = projectile.physicsBody else { return }
+      projectilePhysicsBody.isDynamic = true
+      projectilePhysicsBody.categoryBitMask = PhysicsCategory.Projectile
+      projectilePhysicsBody.collisionBitMask = PhysicsCategory.None
+      projectilePhysicsBody.contactTestBitMask = PhysicsCategory.Monster
+      projectilePhysicsBody.usesPreciseCollisionDetection = true
+
+      self.addChild(projectile)
+
+      // The end point for the projectile.
+      let destination = direction * 1000 + projectile.position
+
+      // Shoot out projectile.
+      let actionMove = SKAction.move(to: destination, duration: 2.0)
+      let actionMoveDone = SKAction.removeFromParent()
+
+      projectile.run(SKAction.sequence([actionMove, actionMoveDone]))
+    }
+    addChild(weaponStick)
 
     // Setup player.
     player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
@@ -62,45 +102,6 @@ class GameScene: SKScene {
   }
 
   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-    // Play projectile sound.
-    run(SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: false))
-      
-    // Grab a touch to handle.
-    guard let touch = touches.first else { return }
-    let touchLocation = touch.location(in: self)
-
-    // Create projectile.
-    let projectile = SKSpriteNode(imageNamed: "projectile")
-    projectile.position = player.position
-
-    // Setup projectile physics body.
-    projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width / 2)
-    guard let projectilePhysicsBody = projectile.physicsBody else { return }
-    projectilePhysicsBody.isDynamic = true
-    projectilePhysicsBody.categoryBitMask = PhysicsCategory.Projectile
-    projectilePhysicsBody.collisionBitMask = PhysicsCategory.None
-    projectilePhysicsBody.contactTestBitMask = PhysicsCategory.Monster
-    projectilePhysicsBody.usesPreciseCollisionDetection = true
-
-    // Get the offset betweent the tap location and the projectile's location.
-    let offset = touchLocation - projectile.position
-
-    // Prevent player from shooting backwards.
-    if offset.x < 0 { return }
-
-    addChild(projectile)
-
-    // Get shooting direction.
-    let direction = offset.normalized()
-
-    // The end point for the projectile.
-    let destination = direction * 1000 + projectile.position
-
-    // Shoot out projectile.
-    let actionMove = SKAction.move(to: destination, duration: 2.0)
-    let actionMoveDone = SKAction.removeFromParent()
-
-    projectile.run(SKAction.sequence([actionMove, actionMoveDone]))
   }
 }
 
