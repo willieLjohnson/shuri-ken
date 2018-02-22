@@ -52,6 +52,15 @@ class GameScene: SKScene {
     let projectile = SKSpriteNode(imageNamed: "projectile")
     projectile.position = player.position
 
+    // Setup projectile physics body.
+    projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width / 2)
+    guard let projectilePhysicsBody = projectile.physicsBody else { return }
+    projectilePhysicsBody.isDynamic = true
+    projectilePhysicsBody.categoryBitMask = PhysicsCategory.Projectile
+    projectilePhysicsBody.collisionBitMask = PhysicsCategory.None
+    projectilePhysicsBody.contactTestBitMask = PhysicsCategory.Monster
+    projectilePhysicsBody.usesPreciseCollisionDetection = true
+
     // Get the offset betweent the tap location and the projectile's location.
     let offset = touchLocation - projectile.position
 
@@ -100,7 +109,13 @@ private extension GameScene {
     // Create monster node.
     let monster = SKSpriteNode(imageNamed: "monster")
 
-    // Setup monster physics.
+    // Setup monster physicsBody.
+    monster.physicsBody = SKPhysicsBody(rectangleOf: monster.size)
+    guard let monsterPhysicsBody = monster.physicsBody else { return }
+    monsterPhysicsBody.isDynamic = true
+    monsterPhysicsBody.categoryBitMask = PhysicsCategory.Monster
+    monsterPhysicsBody.collisionBitMask = PhysicsCategory.None
+    monsterPhysicsBody.contactTestBitMask = PhysicsCategory.Projectile
 
     // Set starting position
     let spawnY = random(min: monster.size.height / 2, max: size.height - monster.size.height / 2)
