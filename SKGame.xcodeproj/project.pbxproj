@@ -15,6 +15,7 @@
 		3D212035203E63EC009B05F5 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D212034203E63EC009B05F5 /* GameScene.swift */; };
 		3D212039203E65DD009B05F5 /* background-music-aac.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3D212037203E65DD009B05F5 /* background-music-aac.caf */; };
 		3D21203A203E65DD009B05F5 /* pew-pew-lei.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3D212038203E65DD009B05F5 /* pew-pew-lei.caf */; };
+		3D21203C203E86C6009B05F5 /* VectorMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D21203B203E86C6009B05F5 /* VectorMath.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		3D212034203E63EC009B05F5 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		3D212037203E65DD009B05F5 /* background-music-aac.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "background-music-aac.caf"; sourceTree = "<group>"; };
 		3D212038203E65DD009B05F5 /* pew-pew-lei.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pew-pew-lei.caf"; sourceTree = "<group>"; };
+		3D21203B203E86C6009B05F5 /* VectorMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorMath.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				3D21202B203E61AA009B05F5 /* LaunchScreen.storyboard */,
 				3D212036203E65DD009B05F5 /* Sounds */,
 				3D21202E203E61AA009B05F5 /* Info.plist */,
+				3D21203B203E86C6009B05F5 /* VectorMath.swift */,
 			);
 			path = SKGame;
 			sourceTree = "<group>";
@@ -155,6 +158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D21203C203E86C6009B05F5 /* VectorMath.swift in Sources */,
 				3D212035203E63EC009B05F5 /* GameScene.swift in Sources */,
 				3D212025203E61AA009B05F5 /* GameViewController.swift in Sources */,
 				3D21201D203E61AA009B05F5 /* AppDelegate.swift in Sources */,
