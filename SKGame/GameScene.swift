@@ -84,7 +84,25 @@ class GameScene: SKScene {
 
 // MARK: SKPhysicsContactDelegate
 extension GameScene: SKPhysicsContactDelegate {
+  func didBegin(_ contact: SKPhysicsContact) {
+    // Arrange bodies in category order.
+    var firstBody = contact.bodyA
+    var secondBody = contact.bodyB
+    if contact.bodyA.categoryBitMask > contact.bodyB.categoryBitMask {
+      firstBody = contact.bodyB
+      secondBody = contact.bodyA
+    }
 
+    // Check to see if the bodies belong to monsters and projectiles
+    let firstBodyIsMonster = firstBody.categoryBitMask & PhysicsCategory.Monster != 0
+    let secondBodyIsProjectile = secondBody.categoryBitMask & PhysicsCategory.Projectile != 0
+
+    // Handle collision if bodies are monsters and projectiles.
+    if firstBodyIsMonster && secondBodyIsProjectile {
+      guard let monster = firstBody.node as? SKSpriteNode, let projectile = secondBody.node as? SKSpriteNode else { return }
+      projectileDidCollideWithMonster(projectile: projectile, monster: monster)
+    }
+  }
 }
 
 // MARK: Helper functions.
@@ -132,5 +150,12 @@ private extension GameScene {
     let actionMove = SKAction.move(to: CGPoint(x: -monster.size.width / 2, y: spawnY), duration: TimeInterval(moveSpeed))
     let actionMoveDone = SKAction.removeFromParent()
     monster.run(SKAction.sequence([actionMove, actionMoveDone]))
+  }
+
+  /// Handle collision between monsters and projectiles.
+  func projectileDidCollideWithMonster(projectile: SKSpriteNode, monster: SKSpriteNode) {
+    print("HIT")
+    projectile.removeFromParent()
+    monster.removeFromParent()
   }
 }
