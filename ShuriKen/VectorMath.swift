@@ -1,6 +1,6 @@
 //
 //  VectorMath.swift
-//  SKGame
+//  ShuriKen
 //
 //  Created by Willie Johnson on 2/21/18.
 //  Copyright © 2018 Willie Johnson. All rights reserved.

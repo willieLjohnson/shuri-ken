@@ -19,7 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3D212019203E61AA009B05F5 /* SKGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SKGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D212019203E61AA009B05F5 /* SuriKen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuriKen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D21201C203E61AA009B05F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3D212024203E61AA009B05F5 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		3D212027203E61AA009B05F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -46,7 +46,7 @@
 		3D212010203E61AA009B05F5 = {
 			isa = PBXGroup;
 			children = (
-				3D21201B203E61AA009B05F5 /* SKGame */,
+				3D21201B203E61AA009B05F5 /* ShuriKen */,
 				3D21201A203E61AA009B05F5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,12 +54,12 @@
 		3D21201A203E61AA009B05F5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3D212019203E61AA009B05F5 /* SKGame.app */,
+				3D212019203E61AA009B05F5 /* SuriKen.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3D21201B203E61AA009B05F5 /* SKGame */ = {
+		3D21201B203E61AA009B05F5 /* ShuriKen */ = {
 			isa = PBXGroup;
 			children = (
 				3D21201C203E61AA009B05F5 /* AppDelegate.swift */,
@@ -72,7 +72,7 @@
 				3D21202E203E61AA009B05F5 /* Info.plist */,
 				3D21203B203E86C6009B05F5 /* VectorMath.swift */,
 			);
-			path = SKGame;
+			path = ShuriKen;
 			sourceTree = "<group>";
 		};
 		3D212036203E65DD009B05F5 /* Sounds */ = {
@@ -87,9 +87,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3D212018203E61AA009B05F5 /* SKGame */ = {
+		3D212018203E61AA009B05F5 /* SuriKen */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3D212031203E61AA009B05F5 /* Build configuration list for PBXNativeTarget "SKGame" */;
+			buildConfigurationList = 3D212031203E61AA009B05F5 /* Build configuration list for PBXNativeTarget "SuriKen" */;
 			buildPhases = (
 				3D212015203E61AA009B05F5 /* Sources */,
 				3D212016203E61AA009B05F5 /* Frameworks */,
@@ -99,9 +99,9 @@
 			);
 			dependencies = (
 			);
-			name = SKGame;
-			productName = SKGame;
-			productReference = 3D212019203E61AA009B05F5 /* SKGame.app */;
+			name = SuriKen;
+			productName = ShuriKen;
+			productReference = 3D212019203E61AA009B05F5 /* SuriKen.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -112,7 +112,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0920;
-				ORGANIZATIONNAME = "Willie Johnson";
+				ORGANIZATIONNAME = Vybe;
 				TargetAttributes = {
 					3D212018203E61AA009B05F5 = {
 						CreatedOnToolsVersion = 9.2;
@@ -120,7 +120,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3D212014203E61AA009B05F5 /* Build configuration list for PBXProject "SKGame" */;
+			buildConfigurationList = 3D212014203E61AA009B05F5 /* Build configuration list for PBXProject "SuriKen" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -133,7 +133,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3D212018203E61AA009B05F5 /* SKGame */,
+				3D212018203E61AA009B05F5 /* SuriKen */,
 			);
 		};
 /* End PBXProject section */
@@ -300,9 +300,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RFQY6T2L4D;
-				INFOPLIST_FILE = SKGame/Info.plist;
+				INFOPLIST_FILE = ShuriKen/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vybe.SKGame;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vybe.shuri-ken";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -315,9 +315,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RFQY6T2L4D;
-				INFOPLIST_FILE = SKGame/Info.plist;
+				INFOPLIST_FILE = ShuriKen/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vybe.SKGame;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vybe.shuri-ken";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -327,7 +327,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3D212014203E61AA009B05F5 /* Build configuration list for PBXProject "SKGame" */ = {
+		3D212014203E61AA009B05F5 /* Build configuration list for PBXProject "SuriKen" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3D21202F203E61AA009B05F5 /* Debug */,
@@ -336,7 +336,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3D212031203E61AA009B05F5 /* Build configuration list for PBXNativeTarget "SKGame" */ = {
+		3D212031203E61AA009B05F5 /* Build configuration list for PBXNativeTarget "SuriKen" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3D212032203E61AA009B05F5 /* Debug */,
