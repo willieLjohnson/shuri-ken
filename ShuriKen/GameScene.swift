@@ -23,10 +23,21 @@ class GameScene: SKScene {
   let player = SKSpriteNode(imageNamed: "player")
   /// Keeps track of the number of monsters the player has destroyed.
   var monstersDestroyed = 0
+  /// On screen controls.
+  let movePlayerStick = AnalogJoystick(diameters: (100, 50))
 
   override func didMove(to view: SKView) {
     // Setup game scene.
     backgroundColor = .white
+
+    // Setup on-screen controls.
+    movePlayerStick.position = CGPoint(x: movePlayerStick.radius + 15, y: movePlayerStick.radius + 15)
+    movePlayerStick.trackingHandler = { [unowned self] data in
+      let player = self.player
+      player.position = CGPoint(x: player.position.x + (data.velocity.x * 0.12),
+                                y: player.position.y + (data.velocity.y * 0.12))
+    }
+    addChild(movePlayerStick)
 
     // Setup player.
     player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
