@@ -16,6 +16,7 @@
 		3D212039203E65DD009B05F5 /* background-music-aac.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3D212037203E65DD009B05F5 /* background-music-aac.caf */; };
 		3D21203A203E65DD009B05F5 /* pew-pew-lei.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3D212038203E65DD009B05F5 /* pew-pew-lei.caf */; };
 		3D21203C203E86C6009B05F5 /* VectorMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D21203B203E86C6009B05F5 /* VectorMath.swift */; };
+		3D73B7F9203F5B1B00F5D4A7 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D73B7F8203F5B1B00F5D4A7 /* GameOverScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		3D212037203E65DD009B05F5 /* background-music-aac.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "background-music-aac.caf"; sourceTree = "<group>"; };
 		3D212038203E65DD009B05F5 /* pew-pew-lei.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pew-pew-lei.caf"; sourceTree = "<group>"; };
 		3D21203B203E86C6009B05F5 /* VectorMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorMath.swift; sourceTree = "<group>"; };
+		3D73B7F8203F5B1B00F5D4A7 /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				3D212036203E65DD009B05F5 /* Sounds */,
 				3D21202E203E61AA009B05F5 /* Info.plist */,
 				3D21203B203E86C6009B05F5 /* VectorMath.swift */,
+				3D73B7F8203F5B1B00F5D4A7 /* GameOverScene.swift */,
 			);
 			path = ShuriKen;
 			sourceTree = "<group>";
@@ -158,6 +161,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D73B7F9203F5B1B00F5D4A7 /* GameOverScene.swift in Sources */,
 				3D21203C203E86C6009B05F5 /* VectorMath.swift in Sources */,
 				3D212035203E63EC009B05F5 /* GameScene.swift in Sources */,
 				3D212025203E61AA009B05F5 /* GameViewController.swift in Sources */,

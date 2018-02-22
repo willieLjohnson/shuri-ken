@@ -21,6 +21,8 @@ struct PhysicsCategory {
 class GameScene: SKScene {
   /// The player node that will respond to user input.
   let player = SKSpriteNode(imageNamed: "player")
+  /// Keeps track of the number of monsters the player has destroyed.
+  var monstersDestroyed = 0
 
   override func didMove(to view: SKView) {
     // Setup game scene.
@@ -86,6 +88,7 @@ class GameScene: SKScene {
     // Shoot out projectile.
     let actionMove = SKAction.move(to: destination, duration: 2.0)
     let actionMoveDone = SKAction.removeFromParent()
+
     projectile.run(SKAction.sequence([actionMove, actionMoveDone]))
   }
 }
@@ -157,13 +160,23 @@ private extension GameScene {
     // Move the monster towards the other end of the screen and despawn.
     let actionMove = SKAction.move(to: CGPoint(x: -monster.size.width / 2, y: spawnY), duration: TimeInterval(moveSpeed))
     let actionMoveDone = SKAction.removeFromParent()
-    monster.run(SKAction.sequence([actionMove, actionMoveDone]))
+    let loseAction = SKAction.run() {
+      let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+      let gameOverScene = GameOverScene(size: self.size, won: false)
+      self.view?.presentScene(gameOverScene, transition: reveal)
+    }
+    monster.run(SKAction.sequence([actionMove, loseAction, actionMoveDone]))
   }
 
   /// Handle collision between monsters and projectiles.
   func projectileDidCollideWithMonster(projectile: SKSpriteNode, monster: SKSpriteNode) {
-    print("HIT")
     projectile.removeFromParent()
     monster.removeFromParent()
+    monstersDestroyed += 1
+    if monstersDestroyed > 30 {
+      let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+      let gameOverScene = GameOverScene(size: self.size, won: true)
+      self.view?.presentScene(gameOverScene, transition: reveal)
+    }
   }
 }
