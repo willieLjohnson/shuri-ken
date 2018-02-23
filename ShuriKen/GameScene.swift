@@ -33,7 +33,7 @@ class GameScene: SKScene {
     backgroundColor = .white
 
     // Setup joystick to control player movement.
-    movePlayerStick.position = CGPoint(x: movePlayerStick.radius + 15, y: movePlayerStick.radius + 15)
+    movePlayerStick.position = CGPoint(x: movePlayerStick.radius + 50, y: movePlayerStick.radius + 50)
     movePlayerStick.trackingHandler = { [unowned self] data in
       let player = self.player
       player.position = CGPoint(x: player.position.x + (data.velocity.x * 0.12),
@@ -42,7 +42,7 @@ class GameScene: SKScene {
     addChild(movePlayerStick)
 
     // Setup joystick to control player weapon use.
-    weaponStick.position = CGPoint(x: size.width - weaponStick.radius - 15, y: weaponStick.radius + 15)
+    weaponStick.position = CGPoint(x: size.width - weaponStick.radius - 50, y: weaponStick.radius + 50)
     weaponStick.trackingHandler = { [unowned self] data in
       // Play projectile sound.
       self.run(SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: false))
@@ -101,6 +101,26 @@ class GameScene: SKScene {
     addChild(backgroundMusic)
   }
 
+  override func update(_ currentTime: TimeInterval) {
+    guard scene != nil else { return }
+    enumerateChildNodes(withName: "monster") { [weak self] node, stop in
+
+      guard let monster = node as? SKSpriteNode else { return }
+      guard let player = self?.player else { return }
+      //Aim
+      let dx = player.position.x - monster.position.x
+      let dy = player.position.y - monster.position.y
+      let angle = atan2(dy, dx)
+
+      //Seek
+      let vx = cos(angle) * 3.0
+      let vy = sin(angle) * 3.0
+
+      monster.position.x += vx
+      monster.position.y += vy
+    }
+  }
+
   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
   }
 }
@@ -149,6 +169,7 @@ private extension GameScene {
   func addMonster() {
     // Create monster node.
     let monster = SKSpriteNode(imageNamed: "monster")
+    monster.name = "monster"
 
     // Setup monster physicsBody.
     monster.physicsBody = SKPhysicsBody(rectangleOf: monster.size)
@@ -165,19 +186,6 @@ private extension GameScene {
 
     // Add monster to the scene.
     addChild(monster)
-
-    // Generate a random move speed.
-    let moveSpeed = random(min: CGFloat(2.0), max: CGFloat(4.0))
-
-    // Move the monster towards the other end of the screen and despawn.
-    let actionMove = SKAction.move(to: CGPoint(x: -monster.size.width / 2, y: spawnY), duration: TimeInterval(moveSpeed))
-    let actionMoveDone = SKAction.removeFromParent()
-    let loseAction = SKAction.run() {
-      let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-      let gameOverScene = GameOverScene(size: self.size, won: false)
-      self.view?.presentScene(gameOverScene, transition: reveal)
-    }
-    monster.run(SKAction.sequence([actionMove, loseAction, actionMoveDone]))
   }
 
   /// Handle collision between monsters and projectiles.

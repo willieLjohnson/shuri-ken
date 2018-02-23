@@ -45,11 +45,11 @@ Basic SpriteKit game with a cool ninja.
 
 # Next steps
 1. [.] Implement core game features
-    - [.] Move and shoot in any direction
+    - [x] Move and shoot in any direction
         - [x] Move player with on screen joystick
-        - [] Shoot projectiles with on screen joystick
-    - [] Monsters move directly to player
+        - [x] Shoot projectiles with on screen joystick
+    - [x] Monsters move directly to player
     - [] Entity health
     - [] Score label
 
-[.] = Working, [X] = Done
+[.] = Working, [x] = Done
