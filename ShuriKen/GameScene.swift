@@ -29,9 +29,57 @@ class GameScene: SKScene {
   let weaponStick = AnalogJoystick(diameters: (100, 50))
 
   override func didMove(to view: SKView) {
+    setupScene()
+    setupOnScreenControls()
+    setupPlayer()
+    startScene()
+  }
+
+  override func update(_ currentTime: TimeInterval) {
+    // Make sure that the scene has already loaded.
+    guard scene != nil else { return }
+    updateMonsters()
+  }
+}
+
+// MARK: SKPhysicsContactDelegate
+extension GameScene: SKPhysicsContactDelegate {
+  func didBegin(_ contact: SKPhysicsContact) {
+    // Arrange bodies in category order.
+    var firstBody = contact.bodyA
+    var secondBody = contact.bodyB
+    if contact.bodyA.categoryBitMask > contact.bodyB.categoryBitMask {
+      firstBody = contact.bodyB
+      secondBody = contact.bodyA
+    }
+
+    // Check to see if the bodies belong to monsters and projectiles
+    let firstBodyIsMonster = firstBody.categoryBitMask & PhysicsCategory.Monster != 0
+    let secondBodyIsProjectile = secondBody.categoryBitMask & PhysicsCategory.Projectile != 0
+
+    // Handle collision if bodies are monsters and projectiles.
+    if firstBodyIsMonster && secondBodyIsProjectile {
+      guard let monster = firstBody.node as? SKSpriteNode, let projectile = secondBody.node as? SKSpriteNode else { return }
+      projectileDidCollideWithMonster(projectile: projectile, monster: monster)
+    }
+  }
+}
+
+// MARK: Helper functions.
+private extension GameScene {
+  // MARK: Setup
+
+  /// Setup the game world.
+  func setupScene() {
     // Setup game scene.
     backgroundColor = .white
+    // Setup physics world.
+    physicsWorld.gravity = CGVector.zero
+    physicsWorld.contactDelegate = self
+  }
 
+  /// Create and place the on screen controls.
+  func setupOnScreenControls() {
     // Setup joystick to control player movement.
     movePlayerStick.position = CGPoint(x: movePlayerStick.radius + 50, y: movePlayerStick.radius + 50)
     movePlayerStick.trackingHandler = { [unowned self] data in
@@ -78,15 +126,16 @@ class GameScene: SKScene {
       projectile.run(SKAction.sequence([actionMove, actionMoveDone]))
     }
     addChild(weaponStick)
+  }
 
-    // Setup player.
+  /// Create and place the player in the game world.
+  func setupPlayer() {
     player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
     addChild(player)
+  }
 
-    // Setup physics world.
-    physicsWorld.gravity = CGVector.zero
-    physicsWorld.contactDelegate = self
-
+  /// Kick of the gameplay.
+  func startScene() {
     // Start spawning monsters.
     run(SKAction.repeatForever(
       SKAction.sequence([
@@ -101,10 +150,12 @@ class GameScene: SKScene {
     addChild(backgroundMusic)
   }
 
-  override func update(_ currentTime: TimeInterval) {
-    guard scene != nil else { return }
-    enumerateChildNodes(withName: "monster") { [weak self] node, stop in
+  // MARK: Gameplay logic
 
+  /// Update every monster in the scene every frame.
+  func updateMonsters() {
+    // Make monsters chase 
+    enumerateChildNodes(withName: "monster") { [weak self] node, stop in
       guard let monster = node as? SKSpriteNode else { return }
       guard let player = self?.player else { return }
       //Aim
@@ -119,50 +170,6 @@ class GameScene: SKScene {
       monster.position.x += vx
       monster.position.y += vy
     }
-  }
-
-  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-  }
-}
-
-// MARK: SKPhysicsContactDelegate
-extension GameScene: SKPhysicsContactDelegate {
-  func didBegin(_ contact: SKPhysicsContact) {
-    // Arrange bodies in category order.
-    var firstBody = contact.bodyA
-    var secondBody = contact.bodyB
-    if contact.bodyA.categoryBitMask > contact.bodyB.categoryBitMask {
-      firstBody = contact.bodyB
-      secondBody = contact.bodyA
-    }
-
-    // Check to see if the bodies belong to monsters and projectiles
-    let firstBodyIsMonster = firstBody.categoryBitMask & PhysicsCategory.Monster != 0
-    let secondBodyIsProjectile = secondBody.categoryBitMask & PhysicsCategory.Projectile != 0
-
-    // Handle collision if bodies are monsters and projectiles.
-    if firstBodyIsMonster && secondBodyIsProjectile {
-      guard let monster = firstBody.node as? SKSpriteNode, let projectile = secondBody.node as? SKSpriteNode else { return }
-      projectileDidCollideWithMonster(projectile: projectile, monster: monster)
-    }
-  }
-}
-
-// MARK: Helper functions.
-private extension GameScene {
-  /// Returns a randomly generate float that ranges from 0 to 1.
-  /// - Returns: A random CGFloat.
-  func random() -> CGFloat {
-    return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
-  }
-
-  /// Returns a randomly generate float that ranges from a min to max value.
-  /// - Parameters:
-  ///   - min: The lowest number that will be randomly generated.
-  ///   - max: The highest number that will be randomly generated.
-  /// - Returns: A random CGFloat between min and max.
-  func random(min: CGFloat, max: CGFloat) -> CGFloat {
-    return random() * (max - min) + min
   }
 
   /// Spawn a monster at a random location along the y axis.
@@ -187,6 +194,8 @@ private extension GameScene {
     // Add monster to the scene.
     addChild(monster)
   }
+
+  // MARK: Physics
 
   /// Handle collision between monsters and projectiles.
   func projectileDidCollideWithMonster(projectile: SKSpriteNode, monster: SKSpriteNode) {

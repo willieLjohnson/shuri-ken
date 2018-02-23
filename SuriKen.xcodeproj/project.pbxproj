@@ -18,6 +18,7 @@
 		3D21203C203E86C6009B05F5 /* VectorMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D21203B203E86C6009B05F5 /* VectorMath.swift */; };
 		3D73B7F9203F5B1B00F5D4A7 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D73B7F8203F5B1B00F5D4A7 /* GameOverScene.swift */; };
 		3D73B7FB203F705000F5D4A7 /* AnalogJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D73B7FA203F705000F5D4A7 /* AnalogJoystick.swift */; };
+		3D73B8222040970D00F5D4A7 /* QuickMaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D73B8212040970D00F5D4A7 /* QuickMaths.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		3D21203B203E86C6009B05F5 /* VectorMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorMath.swift; sourceTree = "<group>"; };
 		3D73B7F8203F5B1B00F5D4A7 /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		3D73B7FA203F705000F5D4A7 /* AnalogJoystick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalogJoystick.swift; sourceTree = "<group>"; };
+		3D73B8212040970D00F5D4A7 /* QuickMaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickMaths.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 		3D21201B203E61AA009B05F5 /* ShuriKen */ = {
 			isa = PBXGroup;
 			children = (
+				3D73B820204096FB00F5D4A7 /* Helper */,
 				3D21201C203E61AA009B05F5 /* AppDelegate.swift */,
 				3D212024203E61AA009B05F5 /* GameViewController.swift */,
 				3D212034203E63EC009B05F5 /* GameScene.swift */,
@@ -88,6 +91,14 @@
 				3D212038203E65DD009B05F5 /* pew-pew-lei.caf */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		3D73B820204096FB00F5D4A7 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				3D73B8212040970D00F5D4A7 /* QuickMaths.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,6 +177,7 @@
 			files = (
 				3D73B7F9203F5B1B00F5D4A7 /* GameOverScene.swift in Sources */,
 				3D73B7FB203F705000F5D4A7 /* AnalogJoystick.swift in Sources */,
+				3D73B8222040970D00F5D4A7 /* QuickMaths.swift in Sources */,
 				3D21203C203E86C6009B05F5 /* VectorMath.swift in Sources */,
 				3D212035203E63EC009B05F5 /* GameScene.swift in Sources */,
 				3D212025203E61AA009B05F5 /* GameViewController.swift in Sources */,
