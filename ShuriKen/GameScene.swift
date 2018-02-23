@@ -59,7 +59,7 @@ extension GameScene: SKPhysicsContactDelegate {
 
     // Handle collision if bodies are monsters and projectiles.
     if firstBodyIsMonster && secondBodyIsProjectile {
-      guard let monster = firstBody.node as? SKSpriteNode, let projectile = secondBody.node as? SKSpriteNode else { return }
+      guard let monster = firstBody.node as? Monster, let projectile = secondBody.node as? SKSpriteNode else { return }
       projectileDidCollideWithMonster(projectile: projectile, monster: monster)
     }
   }
@@ -93,12 +93,14 @@ private extension GameScene {
     weaponStick.position = CGPoint(x: size.width - weaponStick.radius - 50, y: weaponStick.radius + 50)
     weaponStick.trackingHandler = { [unowned self] data in
       // Play projectile sound.
-      self.run(SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: false))
+//      self.run(SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: true))
 
       // Get shooting direction.
-      let direction = data.velocity.normalized()
+      var direction = data.velocity.normalized()
+      // Change direction to point straight up if the analog stick is in the center.
       if direction.x.isNaN || direction.y.isNaN {
-        return
+        direction.x = 1.0
+        direction.y = 0.0
       }
 
       // Create projectile.
@@ -156,41 +158,15 @@ private extension GameScene {
   func updateMonsters() {
     // Make monsters chase 
     enumerateChildNodes(withName: "monster") { [weak self] node, stop in
-      guard let monster = node as? SKSpriteNode else { return }
-      guard let player = self?.player else { return }
-      //Aim
-      let dx = player.position.x - monster.position.x
-      let dy = player.position.y - monster.position.y
-      let angle = atan2(dy, dx)
+      guard let monster = node as? Monster, let scene = self else { return }
 
-      //Seek
-      let vx = cos(angle) * 3.0
-      let vy = sin(angle) * 3.0
-
-      monster.position.x += vx
-      monster.position.y += vy
+      monster.update(scene)
     }
   }
 
   /// Spawn a monster at a random location along the y axis.
   func addMonster() {
-    // Create monster node.
-    let monster = SKSpriteNode(imageNamed: "monster")
-    monster.name = "monster"
-
-    // Setup monster physicsBody.
-    monster.physicsBody = SKPhysicsBody(rectangleOf: monster.size)
-    guard let monsterPhysicsBody = monster.physicsBody else { return }
-    monsterPhysicsBody.isDynamic = true
-    monsterPhysicsBody.categoryBitMask = PhysicsCategory.Monster
-    monsterPhysicsBody.collisionBitMask = PhysicsCategory.None
-    monsterPhysicsBody.contactTestBitMask = PhysicsCategory.Projectile
-
-    // Set starting position
-    let spawnY = random(min: monster.size.height / 2, max: size.height - monster.size.height / 2)
-    let spawnX = size.width + monster.size.width / 2
-    monster.position = CGPoint(x: spawnX, y: spawnY)
-
+    let monster: Monster = Monster(spawn: CGPoint(x: random(min: 0, max: size.width), y: random(min: 0, max: size.height)))
     // Add monster to the scene.
     addChild(monster)
   }
@@ -198,14 +174,17 @@ private extension GameScene {
   // MARK: Physics
 
   /// Handle collision between monsters and projectiles.
-  func projectileDidCollideWithMonster(projectile: SKSpriteNode, monster: SKSpriteNode) {
+  func projectileDidCollideWithMonster(projectile: SKSpriteNode, monster: Monster) {
     projectile.removeFromParent()
-    monster.removeFromParent()
-    monstersDestroyed += 1
-    if monstersDestroyed > 30 {
-      let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-      let gameOverScene = GameOverScene(size: self.size, won: true)
-      self.view?.presentScene(gameOverScene, transition: reveal)
+    monster.damage(10) { isDead in
+      if isDead {
+        monstersDestroyed += 1
+        if monstersDestroyed > 30 {
+          let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+          let gameOverScene = GameOverScene(size: self.size, won: true)
+          self.view?.presentScene(gameOverScene, transition: reveal)
+        }
+      }
     }
   }
 }

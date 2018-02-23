@@ -44,12 +44,18 @@ Basic SpriteKit game with a cool ninja.
   - Rescued friends (in multiplayer) get back up with 25% recovered health.
 
 # Next steps
-1. [.] Implement core game features
+1. [x] Implement core game features
     - [x] Move and shoot in any direction
         - [x] Move player with on screen joystick
         - [x] Shoot projectiles with on screen joystick
     - [x] Monsters move directly to player
+    - [x] Monsters spawn everywhere in game scene
     - [] Entity health
+        - [] Monster health
     - [] Score label
 
 [.] = Working, [x] = Done
+
+# Resources used
+- [SpriteKit Swift 3 Tutorial Beginners](https://www.raywenderlich.com/145318/spritekit-swift-3-tutorial-beginners)
+- [AnalogJoystick.swift](https://github.com/MitrophD/Swift-SpriteKit-Analog-Stick)
