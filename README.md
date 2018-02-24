@@ -50,8 +50,9 @@ Basic SpriteKit game with a cool ninja.
         - [x] Shoot projectiles with on screen joystick
     - [x] Monsters move directly to player
     - [x] Monsters spawn everywhere in game scene
-    - [] Entity health
-        - [] Monster health
+    - [.] Entity health
+        - [X] Monster health
+        - [] Player health
     - [] Score label
 
 [.] = Working, [x] = Done

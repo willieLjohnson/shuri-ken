@@ -27,6 +27,8 @@ class GameScene: SKScene {
   let movePlayerStick = AnalogJoystick(diameters: (100, 50))
   /// On screen control to control throwing weapons.
   let weaponStick = AnalogJoystick(diameters: (100, 50))
+  /// Current monsters that are alive in the game world.
+  var monsters = [Monster]()
 
   override func didMove(to view: SKView) {
     setupScene()
@@ -82,6 +84,7 @@ private extension GameScene {
   func setupOnScreenControls() {
     // Setup joystick to control player movement.
     movePlayerStick.position = CGPoint(x: movePlayerStick.radius + 50, y: movePlayerStick.radius + 50)
+    movePlayerStick.stick.color = .red
     movePlayerStick.trackingHandler = { [unowned self] data in
       let player = self.player
       player.position = CGPoint(x: player.position.x + (data.velocity.x * 0.12),
@@ -90,10 +93,11 @@ private extension GameScene {
     addChild(movePlayerStick)
 
     // Setup joystick to control player weapon use.
-    weaponStick.position = CGPoint(x: size.width - weaponStick.radius - 50, y: weaponStick.radius + 50)
+    weaponStick.position = CGPoint(x: size.width - weaponStick.radius - 25, y: weaponStick.radius + 25)
+    weaponStick.stick.color = .red
     weaponStick.trackingHandler = { [unowned self] data in
       // Play projectile sound.
-//      self.run(SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: true))
+      self.run(SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: true))
 
       // Get shooting direction.
       var direction = data.velocity.normalized()
@@ -156,11 +160,9 @@ private extension GameScene {
 
   /// Update every monster in the scene every frame.
   func updateMonsters() {
-    // Make monsters chase 
-    enumerateChildNodes(withName: "monster") { [weak self] node, stop in
-      guard let monster = node as? Monster, let scene = self else { return }
-
-      monster.update(scene)
+    // Make monsters chase
+    for monster in monsters {
+      monster.update(self)
     }
   }
 
@@ -169,6 +171,7 @@ private extension GameScene {
     let monster: Monster = Monster(spawn: CGPoint(x: random(min: 0, max: size.width), y: random(min: 0, max: size.height)))
     // Add monster to the scene.
     addChild(monster)
+    monsters.append(monster)
   }
 
   // MARK: Physics

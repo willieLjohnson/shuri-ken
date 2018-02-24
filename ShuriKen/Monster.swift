@@ -12,7 +12,7 @@ import SpriteKit
 /// A SKSpriteNode that represents the monsters that the player have to
 class Monster: SKSpriteNode {
   /// Health of the monster.
-  var health = 100
+  var health = 30
   /// The speed at which the monster moves around the game world.
   var moveSpeed: CGFloat = 1.0
 
