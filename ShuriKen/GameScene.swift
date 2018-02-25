@@ -21,17 +21,24 @@ struct PhysicsCategory {
 class GameScene: SKScene {
   /// The player node that will respond to user input.
   let player = SKSpriteNode(imageNamed: "player")
+  /// Shows the score of the player.
+  let scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
   /// Keeps track of the number of monsters the player has destroyed.
-  var monstersDestroyed = 0
+  var monstersDestroyed = 0 {
+    didSet {
+      scoreLabel.text = "\(monstersDestroyed)"
+    }
+  }
   /// On screen control to move player.
-  let movePlayerStick = AnalogJoystick(diameters: (100, 50))
+  let movePlayerStick = AnalogJoystick(diameters: (125, 75))
   /// On screen control to control throwing weapons.
-  let weaponStick = AnalogJoystick(diameters: (100, 50))
+  let weaponStick = AnalogJoystick(diameters: (125, 75))
   /// Current monsters that are alive in the game world.
   var monsters = [Monster]()
 
   override func didMove(to view: SKView) {
     setupScene()
+    setupHUD()
     setupOnScreenControls()
     setupPlayer()
     startScene()
@@ -80,10 +87,19 @@ private extension GameScene {
     physicsWorld.contactDelegate = self
   }
 
+  /// Setup the HUD of the game.
+  func setupHUD() {
+    scoreLabel.text = "\(monstersDestroyed)"
+    scoreLabel.fontSize = 40
+    scoreLabel.fontColor = .black
+    scoreLabel.position = CGPoint(x: size.width / 2, y: size.height - 40)
+    addChild(scoreLabel)
+  }
+
   /// Create and place the on screen controls.
   func setupOnScreenControls() {
     // Setup joystick to control player movement.
-    movePlayerStick.position = CGPoint(x: movePlayerStick.radius + 50, y: movePlayerStick.radius + 50)
+    movePlayerStick.position = CGPoint(x: movePlayerStick.radius + 12, y: movePlayerStick.radius + 12)
     movePlayerStick.stick.color = .red
     movePlayerStick.trackingHandler = { [unowned self] data in
       let player = self.player
@@ -93,11 +109,11 @@ private extension GameScene {
     addChild(movePlayerStick)
 
     // Setup joystick to control player weapon use.
-    weaponStick.position = CGPoint(x: size.width - weaponStick.radius - 25, y: weaponStick.radius + 25)
+    weaponStick.position = CGPoint(x: size.width - weaponStick.radius - 12, y: weaponStick.radius + 12)
     weaponStick.stick.color = .red
     weaponStick.trackingHandler = { [unowned self] data in
       // Play projectile sound.
-      self.run(SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: true))
+      self.run(SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: false))
 
       // Get shooting direction.
       var direction = data.velocity.normalized()

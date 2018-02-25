@@ -53,7 +53,7 @@ Basic SpriteKit game with a cool ninja.
     - [.] Entity health
         - [X] Monster health
         - [] Player health
-    - [] Score label
+    - [x] Score label
 
 [.] = Working, [x] = Done
 
