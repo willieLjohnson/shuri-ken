@@ -20,7 +20,7 @@ struct PhysicsCategory {
 /// Main scene of the game.
 class GameScene: SKScene {
   /// The player node that will respond to user input.
-  let player = SKSpriteNode(imageNamed: "player")
+  let player = Player("player")
   /// Shows the score of the player.
   let scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
   /// Keeps track of the number of monsters the player has destroyed.
