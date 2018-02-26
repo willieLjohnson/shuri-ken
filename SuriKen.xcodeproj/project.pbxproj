@@ -79,13 +79,13 @@
 				3D73B7F8203F5B1B00F5D4A7 /* GameOverScene.swift */,
 				3D73B8232040C32700F5D4A7 /* Monster.swift */,
 				3DF26E772043B278002B631B /* Player.swift */,
+				3D21203B203E86C6009B05F5 /* VectorMath.swift */,
 				3D73B7FA203F705000F5D4A7 /* AnalogJoystick.swift */,
 				3D212026203E61AA009B05F5 /* Main.storyboard */,
 				3D212029203E61AA009B05F5 /* Assets.xcassets */,
 				3D21202B203E61AA009B05F5 /* LaunchScreen.storyboard */,
 				3D212036203E65DD009B05F5 /* Sounds */,
 				3D21202E203E61AA009B05F5 /* Info.plist */,
-				3D21203B203E86C6009B05F5 /* VectorMath.swift */,
 			);
 			path = ShuriKen;
 			sourceTree = "<group>";

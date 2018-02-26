@@ -25,9 +25,9 @@ class Player: SKSpriteNode {
     physicsBody = SKPhysicsBody(rectangleOf: size)
     guard let playerPhysicsBody = physicsBody else { return }
     playerPhysicsBody.isDynamic = true
-    playerPhysicsBody.categoryBitMask = PhysicsCategory.Monster
-    playerPhysicsBody.collisionBitMask = PhysicsCategory.None
-    playerPhysicsBody.contactTestBitMask = PhysicsCategory.Projectile
+    playerPhysicsBody.categoryBitMask = PhysicsCategory.Player
+    playerPhysicsBody.collisionBitMask = PhysicsCategory.Monster
+    playerPhysicsBody.contactTestBitMask = PhysicsCategory.Monster
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -35,7 +35,7 @@ class Player: SKSpriteNode {
   }
   
   func damage(_ damage: Int, response: (Bool) -> Void) {
-    health -= 1
+    health -= damage
     if health <= 0 {
       removeFromParent()
       response(true)

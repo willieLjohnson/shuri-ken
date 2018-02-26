@@ -51,14 +51,15 @@ Basic SpriteKit game with a cool ninja.
         - [x] Shoot projectiles with on screen joystick
     - [x] Monsters move directly to player
     - [x] Monsters spawn everywhere in game scene
-    - [.] Entity health
-        - [X] Monster health
-        - [] Player health
+    - [x] Entity health
+        - [x] Monster health
+        - [x] Player health
     - [x] Score label
 2. [] Remove analog sticks and create an easier one touch control mechanic
     - [] Move player by sliding your finger around the screen
     - [] Improve camera movement to make movement feel natural
     - [] Create mechanic for shooting in the direction of movement
+    - [] Make movement space like with jetpacks
 
 [.] = Working, [x] = Done
 

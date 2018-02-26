@@ -15,6 +15,8 @@ class Monster: SKSpriteNode {
   var health = 30
   /// The speed at which the monster moves around the game world.
   var moveSpeed: CGFloat = 1.0
+  /// The amount of damage this monster can deal to the player.
+  var attackDamage = 10
 
   /// Create a SKSpriteNode with the "monster" image and place it at given CGPoint.
   /// - Parameter spawn: The position of where the monster will be added to the game world.
@@ -27,8 +29,8 @@ class Monster: SKSpriteNode {
     guard let monsterPhysicsBody = physicsBody else { return }
     monsterPhysicsBody.isDynamic = true
     monsterPhysicsBody.categoryBitMask = PhysicsCategory.Monster
-    monsterPhysicsBody.collisionBitMask = PhysicsCategory.None
-    monsterPhysicsBody.contactTestBitMask = PhysicsCategory.Projectile
+    monsterPhysicsBody.collisionBitMask = PhysicsCategory.Monster | PhysicsCategory.Projectile
+    monsterPhysicsBody.contactTestBitMask = PhysicsCategory.Projectile | PhysicsCategory.Player
 
     self.position = spawn
   }
@@ -51,14 +53,22 @@ class Monster: SKSpriteNode {
     position.x += vx
     position.y += vy
   }
+}
 
-  func damage(_ damage: Int, response: (Bool) -> Void) {
-    health -= 1
+// MARK: Combat
+extension Monster {
+  
+  /// Damage the monster with the indicated amount.
+  /// Parameters:
+  ///   - damage: The amount that should be subtracted from the monster's health.
+  ///   - didDie: Whether or not the monster was killed after the damage was inflicted.
+  func damage(_ damage: Int, didDie: (Bool) -> Void) {
+    health -= damage
     if health <= 0 {
       removeFromParent()
-      response(true)
+      didDie(true)
     }
 
-    response(false)
+    didDie(false)
   }
 }

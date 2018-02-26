@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ShuriKen/GameScene.swift"
+            timestampString = "541374716.133783"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "224"
+            endingLineNumber = "224"
+            landmarkName = "checkMonsterToPlayerCollisions(firstBody:secondBody:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ShuriKen/GameScene.swift"
+            timestampString = "541374716.13462"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
+            landmarkName = "checkMonsterToPlayerCollisions(firstBody:secondBody:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ShuriKen/GameScene.swift"
+            timestampString = "541374716.135372"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
+            landmarkName = "checkMonsterToPlayerCollisions(firstBody:secondBody:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ShuriKen/GameScene.swift"
+            timestampString = "541374716.135968"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
+            landmarkName = "checkMonsterToPlayerCollisions(firstBody:secondBody:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SuriKen.GameScene.(checkMonsterToPlayerCollisions in _92BEB40537D9F425EA4F2102D7BA6787)(firstBody: __ObjC.SKPhysicsBody, secondBody: __ObjC.SKPhysicsBody) -&gt; ()"
+                  moduleName = "SuriKen"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williejohnson/Documents/github/personal/games/shuri-ken/ShuriKen/GameScene.swift"
+                  timestampString = "541373621.702453"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "222"
+                  endingLineNumber = "222"
+                  offsetFromSymbolStart = "378">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SuriKen.GameScene.(checkMonsterToPlayerCollisions in _92BEB40537D9F425EA4F2102D7BA6787)(firstBody: __ObjC.SKPhysicsBody, secondBody: __ObjC.SKPhysicsBody) -&gt; ()"
+                  moduleName = "SuriKen"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williejohnson/Documents/github/personal/games/shuri-ken/ShuriKen/GameScene.swift"
+                  timestampString = "541373621.704818"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "222"
+                  endingLineNumber = "222"
+                  offsetFromSymbolStart = "427">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

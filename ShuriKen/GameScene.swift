@@ -11,10 +11,11 @@ import SpriteKit
 
 /// Physics categories.
 struct PhysicsCategory {
-  static let None: UInt32 = 0
+  static let None: UInt32 = 0x1 << 0
   static let All: UInt32 = UInt32.max
-  static let Monster: UInt32 = 0b1 // 1
-  static let Projectile: UInt32 = 0b10 // 2
+  static let Monster: UInt32 = 0x1 << 1
+  static let Projectile: UInt32 = 0x1 << 2
+  static let Player: UInt32 = 0x1 << 3
 }
 
 /// Main scene of the game.
@@ -62,15 +63,8 @@ extension GameScene: SKPhysicsContactDelegate {
       secondBody = contact.bodyA
     }
 
-    // Check to see if the bodies belong to monsters and projectiles
-    let firstBodyIsMonster = firstBody.categoryBitMask & PhysicsCategory.Monster != 0
-    let secondBodyIsProjectile = secondBody.categoryBitMask & PhysicsCategory.Projectile != 0
-
-    // Handle collision if bodies are monsters and projectiles.
-    if firstBodyIsMonster && secondBodyIsProjectile {
-      guard let monster = firstBody.node as? Monster, let projectile = secondBody.node as? SKSpriteNode else { return }
-      projectileDidCollideWithMonster(projectile: projectile, monster: monster)
-    }
+    checkProjectileToMonsterCollisions(firstBody: firstBody, secondBody: secondBody)
+    checkMonsterToPlayerCollisions(firstBody: firstBody, secondBody: secondBody)
   }
 }
 
@@ -142,7 +136,7 @@ private extension GameScene {
       let destination = direction * 1000 + projectile.position
 
       // Shoot out projectile.
-      let actionMove = SKAction.move(to: destination, duration: 2.0)
+      let actionMove = SKAction.move(to: destination, duration: 10.0)
       let actionMoveDone = SKAction.removeFromParent()
 
       projectile.run(SKAction.sequence([actionMove, actionMoveDone]))
@@ -193,17 +187,49 @@ private extension GameScene {
   // MARK: Physics
 
   /// Handle collision between monsters and projectiles.
-  func projectileDidCollideWithMonster(projectile: SKSpriteNode, monster: Monster) {
+  func projectileDidCollideWith(_ projectile: SKSpriteNode, monster: Monster) {
     projectile.removeFromParent()
     monster.damage(10) { isDead in
       if isDead {
         monstersDestroyed += 1
         if monstersDestroyed > 30 {
-          let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+          let reveal = SKTransition.doorsCloseHorizontal(withDuration: 0.5)
           let gameOverScene = GameOverScene(size: self.size, won: true)
           self.view?.presentScene(gameOverScene, transition: reveal)
         }
       }
+    }
+  }
+
+  func monsterdidCollideWith(_ monster: Monster, player: Player) {
+    player.damage(monster.attackDamage) { isDead in
+      let reveal = SKTransition.doorsCloseHorizontal(withDuration: 0.5)
+      let gameOverScene = GameOverScene(size: self.size, won: false)
+      view?.presentScene(gameOverScene, transition: reveal)
+    }
+  }
+
+  func checkProjectileToMonsterCollisions(firstBody: SKPhysicsBody, secondBody: SKPhysicsBody) {
+    // Check to see if the bodies belong to monsters and projectiles
+    let firstBodyIsMonster = firstBody.categoryBitMask & PhysicsCategory.Monster != 0
+    let secondBodyIsProjectile = secondBody.categoryBitMask & PhysicsCategory.Projectile != 0
+
+    // Handle collision if bodies are monsters and projectiles.
+    if firstBodyIsMonster && secondBodyIsProjectile {
+      guard let monster = firstBody.node as? Monster, let projectile = secondBody.node as? SKSpriteNode else { return }
+      projectileDidCollideWith(projectile, monster: monster)
+    }
+  }
+
+  func checkMonsterToPlayerCollisions(firstBody: SKPhysicsBody, secondBody: SKPhysicsBody) {
+    // Check to see if the bodies belong to monsters and projectiles
+    let firstBodyIsMonster = firstBody.categoryBitMask & PhysicsCategory.Monster != 0
+    let secondBodyIsPlayer = secondBody.categoryBitMask & PhysicsCategory.Player != 0
+
+    // Handle collision if bodies are monsters and projectiles.
+    if firstBodyIsMonster && secondBodyIsPlayer {
+      guard let monster = firstBody.node as? Monster, let player = secondBody.node as? Player else { return }
+      monsterdidCollideWith(monster, player: player)
     }
   }
 }
