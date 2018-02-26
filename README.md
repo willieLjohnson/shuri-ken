@@ -43,6 +43,7 @@ Basic SpriteKit game with a cool ninja.
   - Rescued civilians must be escourted back to base, but a random reward is given
   - Rescued friends (in multiplayer) get back up with 25% recovered health.
 
+
 # Next steps
 1. [x] Implement core game features
     - [x] Move and shoot in any direction
@@ -54,6 +55,10 @@ Basic SpriteKit game with a cool ninja.
         - [X] Monster health
         - [] Player health
     - [x] Score label
+2. [] Remove analog sticks and create an easier one touch control mechanic
+    - [] Move player by sliding your finger around the screen
+    - [] Improve camera movement to make movement feel natural
+    - [] Create mechanic for shooting in the direction of movement
 
 [.] = Working, [x] = Done
 
