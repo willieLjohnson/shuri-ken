@@ -36,18 +36,24 @@ class GameScene: SKScene {
   let weaponStick = AnalogJoystick(diameters: (125, 75))
   /// Current monsters that are alive in the game world.
   var monsters = [Monster]()
+  /// Follows the player.
+  var cam: SKCameraNode?
+  var previousPosition: CGPoint = .zero
 
   override func didMove(to view: SKView) {
     setupScene()
     setupHUD()
-    setupOnScreenControls()
     setupPlayer()
     startScene()
   }
 
   override func update(_ currentTime: TimeInterval) {
+    super.update(currentTime)
     // Make sure that the scene has already loaded.
     guard scene != nil else { return }
+    if let cam = cam {
+      cam.position = player.position
+    }
     updateMonsters()
   }
 }
@@ -79,6 +85,10 @@ private extension GameScene {
     // Setup physics world.
     physicsWorld.gravity = CGVector.zero
     physicsWorld.contactDelegate = self
+    // Setup camera.
+    cam = SKCameraNode()
+    self.camera = cam
+    addChild(cam!)
   }
 
   /// Setup the HUD of the game.
@@ -87,11 +97,13 @@ private extension GameScene {
     scoreLabel.fontSize = 40
     scoreLabel.fontColor = .black
     scoreLabel.position = CGPoint(x: size.width / 2, y: size.height - 40)
-    addChild(scoreLabel)
+    cam!.addChild(scoreLabel)
+    setupOnScreenControls()
   }
 
   /// Create and place the on screen controls.
   func setupOnScreenControls() {
+    guard let cam = cam else { return }
     // Setup joystick to control player movement.
     movePlayerStick.position = CGPoint(x: movePlayerStick.radius + 12, y: movePlayerStick.radius + 12)
     movePlayerStick.stick.color = .red
@@ -100,7 +112,7 @@ private extension GameScene {
       player.position = CGPoint(x: player.position.x + (data.velocity.x * 0.12),
                                 y: player.position.y + (data.velocity.y * 0.12))
     }
-    addChild(movePlayerStick)
+    cam.addChild(movePlayerStick)
 
     // Setup joystick to control player weapon use.
     weaponStick.position = CGPoint(x: size.width - weaponStick.radius - 12, y: weaponStick.radius + 12)
@@ -141,7 +153,7 @@ private extension GameScene {
 
       projectile.run(SKAction.sequence([actionMove, actionMoveDone]))
     }
-    addChild(weaponStick)
+    cam.addChild(weaponStick)
   }
 
   /// Create and place the player in the game world.
