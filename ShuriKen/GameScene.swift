@@ -202,10 +202,12 @@ private extension GameScene {
   }
 
   func monsterdidCollideWith(_ monster: Monster, player: Player) {
-    player.damage(monster.attackDamage) { isDead in
-      let reveal = SKTransition.doorsCloseHorizontal(withDuration: 0.5)
-      let gameOverScene = GameOverScene(size: self.size, won: false)
-      view?.presentScene(gameOverScene, transition: reveal)
+    player.damage(monster.attackDamage) { didDie in
+      if didDie {
+        let reveal = SKTransition.doorsCloseHorizontal(withDuration: 0.5)
+        let gameOverScene = GameOverScene(size: self.size, won: false)
+        view?.presentScene(gameOverScene, transition: reveal)
+      }
     }
   }
 

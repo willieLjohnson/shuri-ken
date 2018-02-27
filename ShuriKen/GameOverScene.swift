@@ -22,7 +22,8 @@ class GameOverScene: SKScene {
     let label = SKLabelNode(fontNamed: "Chalkduster")
     label.text = message
     label.fontSize = 40
-    label.fontColor = .black
+    label.fontColor = .white
+    backgroundColor = .black
     label.position = CGPoint(x: size.width  / 2, y: size.height / 2)
     addChild(label)
 
@@ -30,7 +31,7 @@ class GameOverScene: SKScene {
     run(SKAction.sequence([
       SKAction.wait(forDuration: 3.0),
       SKAction.run() {
-        let reveal = SKTransition.doorsCloseHorizontal(withDuration: 3.0)
+        let reveal = SKTransition.doorsOpenHorizontal(withDuration: 0.5)
         let scene = GameScene(size: size)
         self.view?.presentScene(scene, transition: reveal)
       }

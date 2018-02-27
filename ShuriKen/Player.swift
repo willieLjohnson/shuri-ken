@@ -11,7 +11,7 @@ import SpriteKit
 
 class Player: SKSpriteNode {
   /// Health of the player.
-  var health = 30
+  var health = 5
   /// The speed at which the player moves around the game world.
   var moveSpeed: CGFloat = 1.0
 
@@ -34,13 +34,12 @@ class Player: SKSpriteNode {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func damage(_ damage: Int, response: (Bool) -> Void) {
+  func damage(_ damage: Int, didDie: (Bool) -> Void) {
     health -= damage
     if health <= 0 {
       removeFromParent()
-      response(true)
+      didDie(true)
     }
-
-    response(false)
+    didDie(false)
   }
 }

@@ -16,7 +16,7 @@ class Monster: SKSpriteNode {
   /// The speed at which the monster moves around the game world.
   var moveSpeed: CGFloat = 1.0
   /// The amount of damage this monster can deal to the player.
-  var attackDamage = 10
+  var attackDamage = 1
 
   /// Create a SKSpriteNode with the "monster" image and place it at given CGPoint.
   /// - Parameter spawn: The position of where the monster will be added to the game world.
